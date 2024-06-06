@@ -2,6 +2,13 @@
 
 This is a Flask project for run ML model.
 
+## Prerequisites
+
+Before running this project, ensure you have the following installed:
+
+- Python (version 3.6 or higher)
+- pip (Python package installer)
+  
 ## Installation
 
 1. Clone the repository:
