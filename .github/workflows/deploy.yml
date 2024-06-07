@@ -50,8 +50,8 @@ jobs:
         run: |
           gcloud --quiet auth configure-docker $GCP_REGION-docker.pkg.dev
 
-      - name: Run file download script
-        run: python download.py
+      # - name: Run file download script
+      #   run: python download.py
 
       - name: Build and push Docker image
         run: |
