@@ -8,8 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Install any dependencies specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt \
-    && python download.py
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose port 5000 to the outside world
 EXPOSE 5000
