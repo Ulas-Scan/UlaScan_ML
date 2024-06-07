@@ -77,14 +77,7 @@ jobs:
             -i ssh_key \
             ulascan@$GCE_INSTANCE_IP \
             "gcloud --quiet auth configure-docker $GCP_REGION-docker.pkg.dev \
-            && docker pull $GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/ulascan/$APP_NAME:latest \
-            && docker stop $APP_NAME || true \
-            && docker rm --force $APP_NAME || true \
-            && docker run -d \
-                --name $APP_NAME \
-                -p 5000:5000 \
-                $GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/ulascan/$APP_NAME:latest \
-            && docker image prune -f"
+            && docker pull $GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/ulascan/$APP_NAME:latest"
 
       - name: Cleanup SSH key
         run: rm ssh_key
