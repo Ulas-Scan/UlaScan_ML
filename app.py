@@ -10,7 +10,7 @@ PRETRAINED_PATH = 'transformers-bert'
 tokenizer = get_tokenizer(MODEL_NAME)
 model = get_model(PRETRAINED_PATH)
 
-@app.route("/predict/", methods=['POST'])
+@app.route("/predict", methods=['POST'])
 def predict():
     data = request.json
     if data is None:
