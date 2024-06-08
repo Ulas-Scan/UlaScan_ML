@@ -1,5 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
+from functools import wraps
 from utils import get_model, get_tokenizer, predict_sentiment
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -10,7 +16,21 @@ PRETRAINED_PATH = 'transformers-bert'
 tokenizer = get_tokenizer(MODEL_NAME)
 model = get_model(PRETRAINED_PATH)
 
+# Get API key from environment variable
+API_KEY = os.getenv('API_KEY')
+
+def require_api_key(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        key = request.headers.get('x-api-key')
+        if key and key == API_KEY:
+            return f(*args, **kwargs)
+        else:
+            abort(401)  # Unauthorized
+    return decorated_function
+
 @app.route("/predict", methods=['POST'])
+@require_api_key
 def predict():
     data = request.json
     if data is None:
