@@ -1,4 +1,4 @@
-name: Deploy to GCE
+name: Build and Push to Artifact Registry
 
 env:
   APP_NAME: ulascan-ml
