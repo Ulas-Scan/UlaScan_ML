@@ -1,3 +1,5 @@
+[![Build and Push to Artifact Registry](https://github.com/Ulas-Scan/UlaScan_ML/actions/workflows/deploy.yml/badge.svg)](https://github.com/Ulas-Scan/UlaScan_ML/actions/workflows/deploy.yml)
+
 # Flask Capstone Machine Learning Project
 
 This is a Flask project for run ML model.
