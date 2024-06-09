@@ -22,7 +22,7 @@ API_KEY = os.getenv('API_KEY')
 def require_api_key(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        key = request.headers.get('x-api-key')
+        key = request.headers.get('api-key')
         if key and key == API_KEY:
             return f(*args, **kwargs)
         else:
