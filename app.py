@@ -43,8 +43,13 @@ def predict():
     # statements: list of reviews
     report = {'Positive': 0, 'Negative': 0}
     for statement in statements:
-        sentiment = predict_sentiment(statement, tokenizer, model, MAX_LENGTH)
-        report[sentiment] += 1
+        try:
+            sentiment = predict_sentiment(statement, tokenizer, model, MAX_LENGTH)
+            report[sentiment] += 1
+        except Exception as e:
+            # If an error occurs, continue to the next statement
+            print(f"Error occurred: {e}")
+            continue
     return jsonify(report)
 
 if __name__ == "__main__":
