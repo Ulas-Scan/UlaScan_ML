@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from utils import get_model, get_tokenizer, predict_sentiment
+from utils import get_model, get_tokenizer, predict_results
 from flask import Flask, request, jsonify, abort
 from dotenv import load_dotenv
 from functools import wraps
@@ -44,21 +44,20 @@ def predict():
     # statements: list of reviews
     report = {'Positive': 0, 'Negative': 0}
     
-    def process_statement(statement):
+    def process_statements(statements):
         try:
-            sentiment = predict_sentiment(statement, tokenizer, model, MAX_LENGTH)
-            return sentiment
+            logits = predict_results(statements, tokenizer, model, MAX_LENGTH)
+            return logits
         except Exception as e:
-            print(f"Error occurred: {e}, statement: {statement}")
+            print(f"Error occurred: {e}")
             return None
     
-    with ThreadPoolExecutor() as executor:
-        futures = {executor.submit(process_statement, statement): statement for statement in statements}
-        
-        for future in as_completed(futures):
-            result = future.result()
-            if result:
-                report[result] += 1
+    predictions = process_statements(statements)
+    for pred in predictions:
+        if pred[0] > pred[1]:
+            report['Negative'] += 1
+        else:
+            report['Positive'] += 1
 
     return jsonify(report)
 
