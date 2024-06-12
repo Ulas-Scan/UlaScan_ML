@@ -13,9 +13,9 @@ def translate_to_indo(text):
     return translated_text
 
 def predict_sentiment(text, tokenizer, model, max_length):
-    translated_text = translate_to_indo(text)
+    # translated_text = translate_to_indo(text)
     tokenized_text = tokenizer(
-        text=translated_text,
+        text=text,
         add_special_tokens=True,
         max_length=max_length,
         truncation=True,
