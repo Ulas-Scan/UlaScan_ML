@@ -24,5 +24,5 @@ def predict_results(texts, tokenizer, model, max_length):
     )
     input_ids = tokenized_texts['input_ids']
     attention_masks = tokenized_texts['attention_mask']
-    predictions = model.predict([input_ids, attention_masks], use_multiprocessing=True, workers=2)
+    predictions = model.predict([input_ids, attention_masks], use_multiprocessing=True, workers=4)
     return predictions.logits
