@@ -44,3 +44,15 @@ Before running this project, ensure you have the following installed:
 + If you done, to exit from virtual environment:
    ```bash
    deactivate
+
+## API
+
+Only one endpoint provided in this service: `/predict`. This endpoint receives a request body containing a list of reviews which are going to be processed using the model. The model will classify each review whether it is a positive review or negative review. The endpoint will return a JSON which counts the number of positive and negative reviews.
+
+## Model
+
+The model we use is BERT, pre-trained with Indonesian Wikipedia, as provided in HuggingFace ([cahya/bert-base-indonesian-522M](https://huggingface.co/cahya/bert-base-indonesian-522M)). The model is trained with TensorFlow using Adam optimizer with a learning rate of 5e-5 and sparse categorical cross entropy objective in 5 epochs. We fine-tuned the model using [fancyzhx/amazon_polarity](https://huggingface.co/datasets/fancyzhx/amazon_polarity) dataset, which has been translated into Indonesian. We sampled 2000 data for the fine-tuning process. This model achieves an average validation accuracy of 0.8396.
+
+## Deployment
+
+The model is deployed with Google Cloud Run, with the model's weights file stored in Google Cloud Storage.
